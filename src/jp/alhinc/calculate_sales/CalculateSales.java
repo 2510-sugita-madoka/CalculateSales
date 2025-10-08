@@ -48,7 +48,7 @@ public class CalculateSales {
 
 		for(int i = 0; i < files.length ; i++) {
 			// 名称が「数字8桁.rcd」のファイルをリストに保持する（パス）
-			if(files[i].getName().matches("[0-9]{8}.rcd")) {
+			if(files[i].getName().matches("^[0-9]{8}.rcd$")) {
 				rcdFiles.add(files[i]);
 			}
 		}
