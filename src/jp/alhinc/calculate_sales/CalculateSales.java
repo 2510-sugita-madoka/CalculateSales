@@ -117,6 +117,14 @@ public class CalculateSales {
 
 		try {
 
+			// エラー処理 1-1
+			// ⽀店定義ファイルが存在しない場合エラー
+			File errorfile = new File(path, fileName);
+			if(!errorfile.exists()) {
+				System.out.println(FILE_NOT_EXIST);
+				return false;
+			}
+
 			File file = new File(path, fileName);
 			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
@@ -126,6 +134,14 @@ public class CalculateSales {
 			while((line = br.readLine()) != null) {
 				// ※ここの読み込み処理を変更してください。(処理内容1-2)
 				String[] items = line.split(",");
+
+				/* エラー処理 1-2
+				   支店コードと支店名が,区切りでない
+				   または支店コードが3桁でない場合はエラー*/
+				if((items.length != 2) || (!items[0].matches("^[0-9]{3}$"))){
+					System.out.println(FILE_INVALID_FORMAT);
+					return false;
+				}
 
 				//支店名、売上金額をそれぞれmapに保持する
 				branchNames.put(items[0], items[1]);
