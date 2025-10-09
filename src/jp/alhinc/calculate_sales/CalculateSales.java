@@ -25,7 +25,7 @@ public class CalculateSales {
 	private static final String FILE_NOT_EXIST = "支店定義ファイルが存在しません";
 	private static final String FILE_INVALID_FORMAT = "支店定義ファイルのフォーマットが不正です";
 	private static final String FILE_INVALID_NUMBER = "売上ファイル名が連番になっていません";
-	private static final String SALEAMOUNT_10DIGIT_OVER = "合計金額が10桁を超えました";
+	private static final String SALES_AMOUNT_10DIGIT_OVER = "合計金額が10桁を超えました";
 	private static final String DATA_INVAL_BRANCH_CODE = "の支店コードが不正です";
 	private static final String DATA_BRANCH_CODE_FORMAT = "のフォーマットが不正です";
 
@@ -104,17 +104,17 @@ public class CalculateSales {
 					branchItem.add(line);
 				}
 
-				// エラー処理 2-3
-				// 売上ファイルの支店コードが支店定義ファイルに該当しなかった場合はエラー
-				if (!branchNames.containsKey(branchItem.get(0))) {
-					System.out.println(rcdFiles.get(i).getName() + DATA_INVAL_BRANCH_CODE);
-					return;
-				}
-
 				// エラー処理 2-4
 				// 売上ファイルの中身が2行ではなかった場合はエラー
 				if(branchItem.size() != 2) {
 					System.out.println(rcdFiles.get(i).getName() + DATA_BRANCH_CODE_FORMAT);
+					return;
+				}
+
+				// エラー処理 2-3
+				// 売上ファイルの支店コードが支店定義ファイルに該当しなかった場合はエラー
+				if (!branchNames.containsKey(branchItem.get(0))) {
+					System.out.println(rcdFiles.get(i).getName() + DATA_INVAL_BRANCH_CODE);
 					return;
 				}
 
@@ -132,7 +132,7 @@ public class CalculateSales {
 				// エラー処理 2-2
 				// 集計した売上金額が10桁を超えた場合エラー
 				if(saleAmount >= 10000000000L){
-					System.out.println(SALEAMOUNT_10DIGIT_OVER);
+					System.out.println(SALES_AMOUNT_10DIGIT_OVER);
 					return;
 				}
 
