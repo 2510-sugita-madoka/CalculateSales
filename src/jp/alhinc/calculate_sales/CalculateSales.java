@@ -178,15 +178,15 @@ public class CalculateSales {
 
 		try {
 
+			File file = new File(path, fileName);
+
 			// エラー処理 1-1
 			// ⽀店定義ファイルが存在しない場合エラー
-			File errorfile = new File(path, fileName);
-			if(!errorfile.exists()) {
+			if(!file.exists()) {
 				System.out.println(FILE_NOT_EXIST);
 				return false;
 			}
 
-			File file = new File(path, fileName);
 			FileReader fr = new FileReader(file);
 			br = new BufferedReader(fr);
 
